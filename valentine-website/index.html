@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Important Sprint Planning Meeting - URGENT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* Jira-style ticket header */
+        .ticket-header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px 10px 0 0;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ticket-id {
+            background: rgba(0,0,0,0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        .priority {
+            background: #ff4757;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 0 0 20px 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .title {
+            font-size: 2.5em;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .title span {
+            color: #ff6b6b;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .meme-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff5f5, #ffe0e6);
+            border-radius: 15px;
+            border: 3px dashed #ff6b6b;
+        }
+
+        .meme-text {
+            font-size: 1.3em;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .meme-text .highlight {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .meme-text .blue {
+            color: #0066cc;
+            font-weight: bold;
+        }
+
+        .question {
+            font-size: 2em;
+            color: #1a1a2e;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .name {
+            font-size: 2.5em;
+            color: #0066cc;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,102,204,0.3);
+            margin-bottom: 20px;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            min-height: 80px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 15px 50px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+            color: white;
+            box-shadow: 0 5px 20px rgba(255,107,107,0.4);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(255,107,107,0.6);
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        /* PM Memes Section */
+        .pm-memes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .meme-card {
+            background: linear-gradient(135deg, #16213e, #1a1a2e);
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            font-size: 0.95em;
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .meme-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff6b6b;
+        }
+
+        .meme-card .emoji {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        /* Success Screen */
+        .success-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .success-screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success-title {
+            font-size: 3em;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            font-size: 1.5em;
+            color: #1a1a2e;
+            margin-bottom: 30px;
+        }
+
+        .heart-big {
+            font-size: 5em;
+            animation: heartbeat 1s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            top: -20px;
+            animation: fall linear forwards;
+            z-index: 1000;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        /* Floating hearts background */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: floatUp 6s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .proposal-content {
+            display: block;
+        }
+
+        .proposal-content.hidden {
+            display: none;
+        }
+
+        /* Sprint progress bar */
+        .sprint-bar {
+            background: #eee;
+            border-radius: 10px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .sprint-progress {
+            background: linear-gradient(90deg, #ff6b6b, #0066cc);
+            height: 100%;
+            width: 0%;
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .sprint-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        /* Rejection counter */
+        .rejection-counter {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff5f5;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .rejection-counter.visible {
+            display: block;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <div class="container">
+        <div class="ticket-header">
+            <span class="ticket-id">LOVE-143</span>
+            <span>Sprint: Forever</span>
+            <span class="priority">BLOCKER</span>
+        </div>
+
+        <div class="main-card">
+            <div class="proposal-content" id="proposalContent">
+                <h1 class="title">Hey <span>Zaid</span>!</h1>
+                <p class="subtitle">I have an important user story that needs your approval...</p>
+
+                <div class="sprint-bar">
+                    <div class="sprint-progress" id="sprintProgress"></div>
+                </div>
+                <p class="sprint-label">Relationship Sprint Progress: Loading feelings... </p>
+
+                <div class="meme-container">
+                    <p class="meme-text">
+                        As a <span class="highlight">hopeless romantic</span>,<br>
+                        I want to <span class="blue">be your Valentine</span>,<br>
+                        So that we can <span class="highlight">ship this love feature to production</span>
+                    </p>
+                </div>
+
+                <div class="pm-memes">
+                    <div class="meme-card">
+                        <div class="emoji">📊</div>
+                        <p>"Let's circle back to us being together"</p>
+                    </div>
+                    <div class="meme-card">
+                        <div class="emoji">🎯</div>
+                        <p>"You're the only item on my roadmap"</p>
+                    </div>
+                    <div class="meme-card">
+                        <div class="emoji">📈</div>
+                        <p>"Our love has great ROI potential"</p>
+                    </div>
+                    <div class="meme-card">
+                        <div class="emoji">🚀</div>
+                        <p>"Ready to take this relationship to MVP?"</p>
+                    </div>
+                </div>
+
+                <h2 class="question">Will you be my Valentine?</h2>
+
+                <div class="buttons-container" id="buttonsContainer">
+                    <button class="btn btn-yes" onclick="sayYes()">Yes!</button>
+                    <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+                </div>
+
+                <div class="rejection-counter" id="rejectionCounter">
+                    <p style="color: #ff6b6b; font-weight: bold;">
+                        <span id="rejectionText">Nice try! But "No" is not in the acceptance criteria </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="success-screen" id="successScreen">
+                <div class="heart-big"></div>
+                <h1 class="success-title">MERGED!</h1>
+                <p class="success-message">
+                    Pull Request #143: "Be My Valentine" has been approved!<br><br>
+                    <strong>Zaid</strong>, you've made me the happiest person!<br><br>
+                    This feature is now in production!
+                </p>
+                <div class="pm-memes" style="margin-top: 30px;">
+                    <div class="meme-card">
+                        <div class="emoji">✅</div>
+                        <p>Status: DONE</p>
+                    </div>
+                    <div class="meme-card">
+                        <div class="emoji">💕</div>
+                        <p>Sprint: FOREVER</p>
+                    </div>
+                    <div class="meme-card">
+                        <div class="emoji">🎉</div>
+                        <p>Priority: YOU</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts background
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const hearts = ['❤️', '💕', '💖', '💗', '💙', '🖤'];
+
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        // Animate sprint progress bar
+        function animateProgress() {
+            setTimeout(() => {
+                document.getElementById('sprintProgress').style.width = '100%';
+            }, 500);
+        }
+
+        // Move the "No" button away
+        let noAttempts = 0;
+        const funnyMessages = [
+            "Nice try! But 'No' is not in the acceptance criteria 😏",
+            "This button has been moved to the backlog! 📋",
+            "Error 404: 'No' option not found! 🔍",
+            "That's out of scope for this sprint! 🏃",
+            "Stakeholder rejected your 'No' request! 👔",
+            "Let's circle back to clicking 'Yes'! 🔄",
+            "This is a blocker - must click Yes to proceed! 🚫",
+            "The 'No' button is in technical debt! 💳",
+            "Product Owner says: Only 'Yes' in MVP! 🎯",
+            "Zaid, the metrics show 'Yes' is the right choice! 📊"
+        ];
+
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const container = document.getElementById('buttonsContainer');
+            const containerRect = container.getBoundingClientRect();
+
+            const maxX = containerRect.width - btn.offsetWidth - 20;
+            const maxY = 100;
+
+            const randomX = Math.random() * maxX - maxX/2;
+            const randomY = Math.random() * maxY - maxY/2;
+
+            btn.style.position = 'relative';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.style.transition = 'all 0.3s ease';
+
+            noAttempts++;
+
+            // Show rejection counter with funny message
+            const counter = document.getElementById('rejectionCounter');
+            const text = document.getElementById('rejectionText');
+            counter.classList.add('visible');
+            text.textContent = funnyMessages[Math.min(noAttempts - 1, funnyMessages.length - 1)];
+
+            // Make button smaller each time
+            const scale = Math.max(0.5, 1 - (noAttempts * 0.1));
+            btn.style.transform = `scale(${scale})`;
+
+            // After many attempts, hide the button
+            if (noAttempts >= 8) {
+                btn.style.opacity = '0';
+                btn.style.pointerEvents = 'none';
+                text.textContent = "The 'No' button has been deprecated! Only 'Yes' remains! 🎉";
+            }
+        }
+
+        // Success function
+        function sayYes() {
+            document.getElementById('proposalContent').classList.add('hidden');
+            document.getElementById('successScreen').classList.add('active');
+            createConfetti();
+        }
+
+        // Create confetti celebration
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#ff8e8e', '#0066cc', '#1a1a2e', '#ff69b4', '#ffd700'];
+            const shapes = ['❤️', '💕', '💖', '🎉', '✨', '💙', '🖤'];
+
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    confetti.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    confetti.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                    document.body.appendChild(confetti);
+
+                    // Remove confetti after animation
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 50);
+            }
+        }
+
+        // Initialize
+        createFloatingHearts();
+        animateProgress();
+    </script>
+</body>
+</html>
