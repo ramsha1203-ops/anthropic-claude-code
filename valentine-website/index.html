@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', Times, serif;
             min-height: 100vh;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             display: flex;
@@ -63,7 +63,7 @@
 
         .main-card {
             background: white;
-            border-radius: 0 0 20px 20px;
+            border-radius: 20px;
             padding: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
@@ -86,10 +86,11 @@
 
         .meme-container {
             margin: 30px 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #fff5f5, #ffe0e6);
-            border-radius: 15px;
-            border: 3px dashed #ff6b6b;
+            padding: 30px 40px;
+            background: #fafafa;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .meme-text {
@@ -108,10 +109,26 @@
             font-weight: bold;
         }
 
+        .question-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .zaid-photo {
+            width: 200px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
         .question {
             font-size: 2em;
             color: #1a1a2e;
-            margin: 30px 0;
+            margin: 0;
             padding: 20px;
             background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
             -webkit-background-clip: text;
@@ -342,21 +359,10 @@
     <div class="floating-hearts" id="floatingHearts"></div>
 
     <div class="container">
-        <div class="ticket-header">
-            <span class="ticket-id">LOVE-143</span>
-            <span>Sprint: Forever</span>
-            <span class="priority">BLOCKER</span>
-        </div>
-
         <div class="main-card">
             <div class="proposal-content" id="proposalContent">
                 <h1 class="title">Hey <span>Zaid</span>!</h1>
                 <p class="subtitle">I have an important user story that needs your approval...</p>
-
-                <div class="sprint-bar">
-                    <div class="sprint-progress" id="sprintProgress"></div>
-                </div>
-                <p class="sprint-label">Relationship Sprint Progress: Loading feelings... </p>
 
                 <div class="meme-container">
                     <p class="meme-text">
@@ -385,7 +391,10 @@
                     </div>
                 </div>
 
-                <h2 class="question">Will you be my Valentine?</h2>
+                <div class="question-section">
+                    <img src="zaid-photo.png" alt="Zaid" class="zaid-photo">
+                    <h2 class="question">Will you be my Valentine?</h2>
+                </div>
 
                 <div class="buttons-container" id="buttonsContainer">
                     <button class="btn btn-yes" onclick="sayYes()">Yes!</button>
@@ -530,7 +539,6 @@
 
         // Initialize
         createFloatingHearts();
-        animateProgress();
     </script>
 </body>
 </html>
